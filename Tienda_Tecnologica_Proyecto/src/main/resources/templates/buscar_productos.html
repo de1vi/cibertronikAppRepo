@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es-PE" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+		<h1 class="text-center mb-4">Bienvenido A CiberTronik</h1>
+        <h2 class="text-center mb-2">Buscar Productos</h2>
+
+        <div class="text-right mb-3">
+            <a href="/productos/nuevo" class="btn btn-primary">Registrar Nuevo Producto</a>
+        </div>
+
+        <form action="/productos/buscar/resultados" method="get" class="mb-4">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="tipo">Buscar por:</label>
+                    <select id="tipo" name="tipo" class="form-control" required>
+                        <option value="nombre">Nombre</option>
+                        <option value="categoria">Categoría</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-8">
+                    <label for="dato">Ingrese el dato:</label>
+                    <input type="text" id="dato" name="dato" class="form-control" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Buscar</button>
+        </form>
+
+        <div th:if="${productos}">
+            <h2>Resultados de la búsqueda:</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="producto : ${productos}">
+                        <td th:text="${producto.id}"></td>
+                        <td th:text="${producto.nombre}"></td>
+                        <td th:text="${producto.marca}"></td>
+                        <td th:text="${producto.modelo}"></td>
+                        <td th:text="${producto.categoria.nombre}"></td>
+                        <td th:text="${producto.precio}"></td>
+                        <td th:text="${producto.cantidad}"></td>
+                        <td th:text="${producto.descripcion}"></td>
+                        <td>
+                            <a th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn btn-warning btn-sm">Editar</a>
+                            <form th:action="@{/productos/eliminar/{id}(id=${producto.id})}" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro que quieres eliminar el producto?')">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
