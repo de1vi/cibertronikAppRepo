@@ -67,6 +67,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+		            <groupId>com.microsoft.azure</groupId>
+		            <artifactId>azure-webapp-maven-plugin</artifactId>
+		            <version>2.13.0</version> <!-- Reemplaza con la última versión -->
+		            <configuration>
+		                <schemaVersion>v2</schemaVersion>
+		                <resourceGroup>GroupSpring</resourceGroup>
+		                <appName>cibertronik</appName>
+		                <javaVersion>17</javaVersion> <!-- Ajusta según tu versión de Java -->
+		                <runtime>java|17|Tomcat|10.1</runtime> <!-- Ajusta según tu configuración -->
+		            </configuration>
+		        </plugin>
 		</plugins>
 	</build>
 
